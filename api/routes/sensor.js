@@ -52,9 +52,10 @@ router.post("/", (req, res, next) => {
 
   const sensor = new Sensor({
     _id: new mongoose.Types.ObjectId(),
-    sensortype: req.body.sensortype,
-    location: req.body.location,
-    value: req.body.value,
+    name: req.body.name,
+    active: req.body.active,
+    minval: req.body.minval,
+    maxval: req.body.maxval
   });
 
   sensor

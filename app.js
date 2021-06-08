@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require ('mongoose');
 
 const sensorRoutes = require ('./api/routes/sensor');
+const eventSensorRoutes = require ('./api/routes/sensorEvents');
 
 mongoose.connect('mongodb+srv://localhost:challengeWebee@cluster0.v0qal.mongodb.net/Challenge?retryWrites=true&w=majority',
 { 
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
   
 
 app.use('/sensors',sensorRoutes);
+app.use('/events',eventSensorRoutes);
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
