@@ -5,25 +5,27 @@ const mongoose = require("mongoose");
 const Sensor = require("../models/sensor");
 
 //Get all sensors listed
-router.get("/", (req, res, next) => {
-  Sensor.find()
-    .exec()
-    .then((docs) => {
-      console.log(docs);
-      //   if (docs.length >= 0) {
-      res.status(200).json(docs);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        error: err,
-      });
-    });
+router.get("/", async (req, res, next) => {
+  const sensors = await Sensor.find();
+  res.render("index", { sensors });
+
+  //   .exec()
+  //   .then((docs) => {
+  //     console.log(docs);
+  //     //   if (docs.length >= 0) {
+  //     res.status(200).json(docs);
+  //     //   } else {
+  //     //       res.status(404).json({
+  //     //           message: 'No entries found'
+  //     //       });
+  //     //   }
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).json({
+  //       error: err,
+  //     });
+  //   });
 });
 
 //Get an especific sensor
@@ -55,7 +57,7 @@ router.post("/", (req, res, next) => {
     name: req.body.name,
     active: req.body.active,
     minval: req.body.minval,
-    maxval: req.body.maxval
+    maxval: req.body.maxval,
   });
 
   sensor
@@ -74,34 +76,36 @@ router.post("/", (req, res, next) => {
 //Update an existing sensor
 
 router.patch("/:sensorId", async (req, res, next) => {
-   try{
-       const id = req.params.sensorId;
-       const updates = req.body;
-       const options = {new : true};
+  try {
+    const id = req.params.sensorId;
+    const updates = req.body;
+    const options = { new: true };
 
-       const result = await Sensor.findByIdAndUpdate(id,updates,options);
-       res.send(result);
-   }
-   catch(error){
-       console.log(error.message);
-   }
+    const result = await Sensor.findByIdAndUpdate(id, updates, options);
+    res.send(result);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
- 
-
 
 //Delete a sensor
 
-router.delete("/:sensorId", (req, res, next) => {
+router.get("/delete/:sensorId", async (req, res, next) => {
   const sensorid = req.params.sensorId;
-  Sensor.findByIdAndDelete(sensorid)
-    .then((doc) => {
-      console.log(doc);
-      res.status(200).json(doc);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
+  await Sensor.findByIdAndDelete(sensorid);
+  res.redirect('/sensors');
+  
+  // Sensor.findByIdAndDelete(sensorid)
+  //   .then((doc) => {
+  //     console.log(doc);
+  //     res.status(200).json(doc);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.status(500).json({ error: err });
+  //   });
+  //   res.render("index", { sensors });
 });
+
 
 module.exports = router;

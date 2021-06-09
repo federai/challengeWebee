@@ -3,9 +3,10 @@ const app = express();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const mongoose = require ('mongoose');
+const path = require('path');
 
-const sensorRoutes = require ('./api/routes/sensor');
-const eventSensorRoutes = require ('./api/routes/sensorEvents');
+const sensorRoutes = require ('./back/api/routes/sensor');
+const eventSensorRoutes = require ('./back/api/routes/sensorEvents');
 
 mongoose.connect('mongodb+srv://localhost:challengeWebee@cluster0.v0qal.mongodb.net/Challenge?retryWrites=true&w=majority',
 { 
@@ -32,8 +33,16 @@ app.use((req, res, next) => {
   });
   
 
+
 app.use('/sensors',sensorRoutes);
 app.use('/events',eventSensorRoutes);
+app.use(express.static('front'));
+
+
+app.set('views', path.join(__dirname, 'front'));
+app.set('view engine', 'ejs');
+
+
 
 app.use((req, res, next) => {
     const error = new Error("Not found");
