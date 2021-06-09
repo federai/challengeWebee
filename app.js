@@ -8,7 +8,7 @@ const path = require('path');
 const sensorRoutes = require ('./back/api/routes/sensor');
 const eventSensorRoutes = require ('./back/api/routes/sensorEvents');
 
-mongoose.connect('mongodb+srv://localhost:challengeWebee@cluster0.v0qal.mongodb.net/Challenge?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://localhost:challengeWebee@cluster0.v0qal.mongodb.net/TestChallenge?retryWrites=true&w=majority',
 { 
     useNewUrlParser: true, 
     useUnifiedTopology: true 

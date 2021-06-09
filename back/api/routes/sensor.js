@@ -47,14 +47,6 @@ router.get("/:sensorid", (req, res, next) => {
 //Post a new sensor
 router.post("/", async (req, res, next) => {
 
- 
-
-  // const sensor = {
-  //     sensortype : req.body.sensortype,
-  //     location : req.body.location,
-  //     value : req.body.value
-  // };
-
   const sensor = new Sensor({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -65,31 +57,44 @@ router.post("/", async (req, res, next) => {
     console.log(req.body);
    await sensor.save();
    res.redirect('/sensors');
-  //   .then((result) => {
-  //     console.log(result);
-  //   })
-  //   .catch((err) => console.log(err));
 
-  // res.status(200).json({
-  //   message: "Handling / Post request",
-  //   createdSensor: sensor,
-  // });
 });
 
 //Update an existing sensor
 
-router.patch("/:sensorId", async (req, res, next) => {
+router.get("/edit/:sensorId", async (req, res, next) => {
+  const sensorid = req.params.sensorId;
+  const sensor = await Sensor.findById(sensorid);
+  res.render('edit',{
+    sensor
+  });
+  // try {
+  //   const id = req.params.sensorId;
+  //   const updates = req.body;
+  //   const options = { new: true };
+
+  //   const result = await Sensor.findByIdAndUpdate(id, updates, options);
+  //   res.send(result);
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
+});
+
+router.post("/edit/:sensorId", async (req, res, next) => {
+  
   try {
     const id = req.params.sensorId;
     const updates = req.body;
     const options = { new: true };
 
     const result = await Sensor.findByIdAndUpdate(id, updates, options);
-    res.send(result);
+    res.redirect('/sensors');
   } catch (error) {
     console.log(error.message);
   }
 });
+
+
 
 //Delete a sensor
 

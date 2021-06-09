@@ -58,12 +58,59 @@
                                     class="btn btn-primary"><i class="bi bi-trash"></i> Delete</button></a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary"><i class="bi bi-pencil-square"></i>
-                                Modify</button>
+                            <a href="/sensors/edit/<%=sensors[i]._id%> "> <button type="button" class="btn btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                    Edit</button></a>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-primary"><i class="bi bi-plus-square"></i> Add
-                                Event</button>
+
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#modaladd">
+                                    <i class="bi bi-plus-square"></i> Add
+                                    Event
+                                </button>
+                            </div>
+
+
+                            <div class="modal fade " id="modaladd" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class=" modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form action="/events" method="POST">
+                                                <div class="form-group">
+                                                    <div class="mb-3">
+                                                        <h7>Sensor Id</h7>
+                                                        <input class="form-control" type="text" name="sensorid" value="<%= sensors[i]._id %>">
+                                                    </div>
+                                                    
+                                                    <div class="mb-3">
+                                                        <h7>Value</h7>
+
+                                                        <input class="form-control" type="number" name="value">
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </td>
                     </tr>
 
@@ -74,10 +121,14 @@
     </div>
 
     <!-- Button trigger modal -->
+    <form action="/events" method="get">
     <div class="text-center">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Add New Sensor
         </button>
+        <button type="submit" class="btn btn-secondary" >See Events</button>
+    </form>
+
     </div>
 
 
@@ -124,8 +175,10 @@
                 </div>
             </div>
         </div>
-        ...
+
     </div>
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <title>Webee Challenge</title>
+</head>
+
+<body>
+    
+    <!-- As a link -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="/images/logo-webee.png" alt="webeelogo" class="webeelogo"></a>
+        </div>
+    </nav>
+
+    <h1 class="text-center">List of Events</h1>
+    <div>
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col" id="name">Sensor ID</th>
+                    <th scope="col" id="createAt">Create At</th>
+                    <th scope="col" id="value">Value</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let i=0; i < events.length; i++ ) { %>
+                            <tr>
+                                <th scope="row">
+                                    <%=events[i].sensorid %>
+                                </th>
+                                <td>
+                                    <%=events[i].createdAt %>
+                                </td>
+                                <td>
+                                    <%=events[i].value %>
+                                </td>
+
+                            
+                            </tr>
+                            
+                       
+                 <% } %>
+
+            </tbody>
+        </table>
+    </div>
+    <form action="/sensors" method="get">
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary" >
+           Back to Sensors
+        </button>
+    </form>
+    </div>
