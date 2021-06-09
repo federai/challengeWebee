@@ -45,7 +45,10 @@ router.get("/:sensorid", (req, res, next) => {
 });
 
 //Post a new sensor
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
+
+ 
+
   // const sensor = {
   //     sensortype : req.body.sensortype,
   //     location : req.body.location,
@@ -59,18 +62,18 @@ router.post("/", (req, res, next) => {
     minval: req.body.minval,
     maxval: req.body.maxval,
   });
+    console.log(req.body);
+   await sensor.save();
+   res.redirect('/sensors');
+  //   .then((result) => {
+  //     console.log(result);
+  //   })
+  //   .catch((err) => console.log(err));
 
-  sensor
-    .save()
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => console.log(err));
-
-  res.status(200).json({
-    message: "Handling / Post request",
-    createdSensor: sensor,
-  });
+  // res.status(200).json({
+  //   message: "Handling / Post request",
+  //   createdSensor: sensor,
+  // });
 });
 
 //Update an existing sensor
